@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="智维的个人网站 - 文章与思考的分享空间">
+    <title>智维 - 文章列表</title>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #fff;
+            --accent-color: #3498db;
+            --text-color: #fff;
+            --dark-color: #000;
+            --shadow: 0 2px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #000;
+            overflow-x: hidden;
+            cursor: default;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            overscroll-behavior: none; /* 防止iOS上的弹性滚动 */
+            height: auto;
+            min-height: 100vh;
+        }
+
+        /* 添加背景图片 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('yuansu.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25; /* 调整透明度使其成为半透明背景 */
+            z-index: -2;
+            filter: contrast(1.1) brightness(1.1); /* 增强背景图片的对比度和亮度 */
+        }
+        
+        /* 添加背景光晕效果 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(52, 152, 219, 0.15), transparent 70%);
+            z-index: -1;
+            animation: pulse-background 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-background {
+            0% {
+                opacity: 0.4;
+                background-position: 0% 0%;
+            }
+            50% {
+                opacity: 0.7;
+                background-position: 100% 100%;
+            }
+            100% {
+                opacity: 0.4;
+                background-position: 0% 0%;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* 添加流动光线效果 */
+        .light-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.7;
+            pointer-events: none; /* 避免鼠标事件捕获 */
+        }
+        
+        .light-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.4), transparent);
+            height: 2px;
+            width: 100%;
+            animation: flow 8s linear infinite;
+            opacity: 0;
+            transform: translateZ(0); /* 启用硬件加速 */
+        }
+        
+        .light-line:nth-child(1) {
+            top: 20%;
+            animation-delay: 0s;
+        }
+        
+        .light-line:nth-child(2) {
+            top: 40%;
+            animation-delay: 2s;
+        }
+        
+        .light-line:nth-child(3) {
+            top: 60%;
+            animation-delay: 4s;
+        }
+        
+        .light-line:nth-child(4) {
+            top: 80%;
+            animation-delay: 6s;
+        }
+        
+        .light-line:nth-child(5) {
+            top: 30%;
+            animation-delay: 1s;
+        }
+        
+        .light-line:nth-child(6) {
+            top: 50%;
+            animation-delay: 3s;
+        }
+
+        @keyframes flow {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* 添加浮动光粒子 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(52, 152, 219, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(2px);
+            box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 鼠标点击光效 */
+        .click-effect {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0);
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.8) 0%, rgba(52, 152, 219, 0) 70%);
+            animation: click-animation 1s forwards cubic-bezier(0, 0.55, 0.45, 1);
+            z-index: 9;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes click-animation {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(5);
+            }
+        }
+
+        /* 鼠标光环跟随效果 */
+        .mouse-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            will-change: transform, width, height;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+        
+        .mouse-cursor.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        /* 返回按钮样式 */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .back-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .back-button:hover {
+            color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        /* 页面标题 */
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        /* 精选文章部分 */
+        .featured-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background-color: var(--accent-color);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        /* Swiper滑块样式 */
+        .featured-swiper {
+            width: 100%;
+            padding: 10px 5px 40px;
+            overflow: visible;
+        }
+        
+        .featured-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: translateZ(0);
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.2);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+        
+        .featured-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .featured-card:hover .featured-image img {
+            transform: scale(1.1);
+        }
+        
+        .featured-content {
+            padding: 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .featured-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            line-height: 1.3;
+        }
+        
+        .featured-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            flex: 1;
+        }
+        
+        .swiper-pagination {
+            position: relative;
+            margin-top: 20px;
+            bottom: 0;
+        }
+        
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5);
+            width: 10px;
+            height: 10px;
+            opacity: 0.7;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: var(--accent-color);
+            opacity: 1;
+        }
+        
+        .swiper-button-prev, .swiper-button-next {
+            color: var(--accent-color);
+            background: rgba(0, 0, 0, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .swiper-button-prev:hover, .swiper-button-next:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .swiper-button-prev:after, .swiper-button-next:after {
+            font-size: 18px;
+        }
+
+        /* 文章列表部分 */
+        .articles-list {
+            margin-bottom: 2rem;
+        }
+        
+        .article-item {
+            display: flex;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+        
+        .article-item:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 5px;
+        }
+        
+        .article-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background-color: var(--accent-color);
+            transition: height 0.3s ease;
+        }
+        
+        .article-item:hover::before {
+            height: 70%;
+        }
+        
+        .article-main {
+            flex: 1;
+        }
+        
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta-item i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .article-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .article-tag {
+            padding: 3px 10px;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .article-tag:hover {
+            background: rgba(52, 152, 219, 0.5);
+            color: white;
+        }
+        
+        .article-date {
+            flex-shrink: 0;
+            width: 120px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: stretch;
+            padding-right: 0.5rem;
+            border-right: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .article-link:hover .article-date {
+            color: rgba(255, 255, 255, 0.9);
+            border-right-color: var(--accent-color);
+        }
+        
+        .article-date div {
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: rgba(52, 152, 219, 0.2);
+            display: inline-block;
+        }
+        
+        .article-link:hover .article-date div {
+            background: rgba(52, 152, 219, 0.4);
+            transform: translateX(-5px);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* 添加原文链接提示 */
+        .article-date div::after {
+            content: ' →';
+            display: inline-block;
+            margin-left: 2px;
+            opacity: 0;
+            transform: translateX(-5px);
+            transition: all 0.3s ease;
+        }
+        
+        .article-link:hover .article-date div::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* 响应式样式 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .featured-card {
+                height: 320px;
+            }
+            
+            .article-item {
+                flex-direction: column;
+            }
+            
+            .article-date {
+                width: 100%;
+                text-align: left;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-card {
+                height: 300px;
+            }
+            
+            .featured-image {
+                height: 150px;
+            }
+        }
+
+        /* 链接样式 */
+        .featured-card-link, .article-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+        }
+        
+        .featured-card-link:hover, .article-link:hover {
+            color: inherit;
+        }
+        
+        .article-link {
+            margin-bottom: 1px;
+        }
+        
+        .article-link:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 添加流动光线 -->
+    <div class="light-lines">
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+    </div>
+    
+    <!-- 添加浮动光粒子 -->
+    <div class="particles"></div>
+    
+    <!-- 鼠标光环 -->
+    <div class="mouse-cursor"></div>
+    
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back</span>
+        </a>
+        
+        <!-- 页面标题 -->
+        <h1 class="page-title">文章列表</h1>
+        
+        <!-- 精选文章部分 -->
+        <section class="featured-section">
+            <h2 class="section-title">精选文章</h2>
+            
+            <!-- Swiper滑块 -->
+            <div class="swiper featured-swiper">
+                <div class="swiper-wrapper">
+                    <!-- 精选文章1 -->
+                    <div class="swiper-slide">
+                        <a href="https://www.xiaohongshu.com/discovery/item/67f8dc940000000009015037?source=webshare&xhsshare=pc_web&xsec_token=ABU0d6PSw2XWCUV2VzL3G-CVqp3_tUis5Pzp_w9024OfY=&xsec_source=pc_share" class="featured-card-link" target="_blank">
+                            <div class="featured-card">
+                                <div class="featured-image">
+                                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=600&auto=format&fit=crop&q=80" alt="文章封面">
+                                </div>
+                                <div class="featured-content">
+                                    <h3 class="featured-title">How to Get Rich 如何致富</h3>
+                                    <p class="featured-desc">深度分析致富的本质路径，探讨财富增长的底层逻辑和实践方法，帮助读者理解真正的财富增长不仅关乎金钱，更关乎价值创造和时间杠杆。</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 精选文章2 -->
+                    <div class="swiper-slide">
+                        <a href="https://www.xiaohongshu.com/discovery/item/67f8db7f000000001201e11b?source=webshare&xhsshare=pc_web&xsec_token=ABU0d6PSw2XWCUV2VzL3G-CV3cmHNHjS16iWHqEMG_dak=&xsec_source=pc_share" class="featured-card-link" target="_blank">
+                            <div class="featured-card">
+                                <div class="featured-image">
+                                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="文章封面">
+                                </div>
+                                <div class="featured-content">
+                                    <h3 class="featured-title">2025年大模型自制分析：谁才是真正的王者？</h3>
+                                    <p class="featured-desc">对2025年人工智能大模型市场进行深入前瞻分析，探讨主流大模型的技术路线、商业模式和竞争优势，揭示未来AI市场的发展趋势和关键玩家。</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 精选文章3 -->
+                    <div class="swiper-slide">
+                        <a href="https://www.xiaohongshu.com/discovery/item/67f8d887000000000900d880?source=webshare&xhsshare=pc_web&xsec_token=ABU0d6PSw2XWCUV2VzL3G-CRwRyVxxkxoBqfZ0ilp7cAw=&xsec_source=pc_share" class="featured-card-link" target="_blank">
+                            <div class="featured-card">
+                                <div class="featured-image">
+                                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&auto=format&fit=crop&q=80" alt="文章封面">
+                                </div>
+                                <div class="featured-content">
+                                    <h3 class="featured-title">半年融资3亿！清华天才张月光</h3>
+                                    <p class="featured-desc">深度剖析清华人工智能领域新星张月光的创业之路，她如何在半年内实现3亿融资，以及其研发的前沿技术如何重塑行业未来。</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 添加分页器 -->
+                <div class="swiper-pagination"></div>
+                
+                <!-- 添加导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </section>
+        
+        <!-- 文章列表部分 -->
+        <section class="articles-section">
+            <h2 class="section-title">全部文章</h2>
+            
+            <div class="articles-list">
+                <!-- 文章1 -->
+                <a href="https://mp.weixin.qq.com/s/C-wSkjzkNsX0EFaJFTv38w" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">OpenAI全新发布文生视频模型Sora - 现实，不存在了</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 9,872</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">AI</span>
+                                <span class="article-tag">视频生成</span>
+                                <span class="article-tag">OpenAI</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章2 -->
+                <a href="https://mp.weixin.qq.com/s/ibb7eZ1BKRqpTmfrB2HiZQ" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">AI生成字体设计我有点玩明白了，用这套Prompt提效50%</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 7,456</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">AI设计</span>
+                                <span class="article-tag">字体</span>
+                                <span class="article-tag">Prompt</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章3 -->
+                <a href="https://mp.weixin.qq.com/s/-6TMBx2M3lX7z2mfkZAiAg" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">"我要去世了，豆包。"</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 8,345</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">AI对话</span>
+                                <span class="article-tag">豆包</span>
+                                <span class="article-tag">人机交互</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章4 -->
+                <a href="https://mp.weixin.qq.com/s/Hh8v3JYbVYKQMwlxsJSvvA" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">大模型重塑企业竞争力：从降本增效到战略重构的实战启示</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 6,218</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">大模型</span>
+                                <span class="article-tag">企业战略</span>
+                                <span class="article-tag">数字化转型</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章5 -->
+                <a href="https://mp.weixin.qq.com/s/HFzbaHNua4_xxhFIk0b_8g" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">Gemini：钱</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 7,124</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">Gemini</span>
+                                <span class="article-tag">Google</span>
+                                <span class="article-tag">AI经济</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章6 -->
+                <a href="https://mp.weixin.qq.com/s/FT3-9Ub8sv5R4vn6omcZ9g" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">深度丨高准：北大毕业的传奇IPO律师，接替周受资成为字节跳动CFO，但字节上市仍悬而未决</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 5,876</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">字节跳动</span>
+                                <span class="article-tag">商业</span>
+                                <span class="article-tag">IPO</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章7 -->
+                <a href="https://mp.weixin.qq.com/s/dloI5Ju5wq_NZpUAzC09HA" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">Zpedia丨AI独角兽年中最全面复盘，月之暗面和Minimax们的超级APP做的怎么样了？</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 6,547</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">AI创业</span>
+                                <span class="article-tag">独角兽</span>
+                                <span class="article-tag">市场分析</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 文章8 -->
+                <a href="https://mp.weixin.qq.com/s/ZwFp0QPdDUPND6mZiL5WDQ" class="article-link" target="_blank">
+                    <div class="article-item">
+                        <div class="article-main">
+                            <h3 class="article-title">速递｜字节跳动AI架构再次大调整，AI Lab整体并入Seed，吴永辉押注集中力量办大事</h3>
+                            <div class="article-meta">
+                                <div class="article-meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>阅读量: 5,432</span>
+                                </div>
+                            </div>
+                            <div class="article-tags">
+                                <span class="article-tag">字节跳动</span>
+                                <span class="article-tag">AI</span>
+                                <span class="article-tag">组织架构</span>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <div>查看原文</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- 引入 Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // 文档加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            initEffects();
+            initSwiper();
+        });
+        
+        // 初始化所有效果
+        function initEffects() {
+            // 初始化粒子效果
+            createParticles();
+            
+            // 初始化鼠标光环
+            initMouseCursor();
+            
+            // 处理点击效果
+            document.addEventListener('click', throttle(handleClick, 50));
+        }
+        
+        // 初始化Swiper轮播
+        function initSwiper() {
+            new Swiper('.featured-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                grabCursor: true,
+                effect: 'slide',
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    }
+                }
+            });
+        }
+        
+        // 创建浮动光粒子
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 40;
+            
+            // 清空现有粒子
+            particlesContainer.innerHTML = '';
+            
+            // 使用文档片段减少DOM重绘次数
+            const fragment = document.createDocumentFragment();
+            
+            // 颜色数组
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',  // 蓝色
+                'rgba(142, 68, 173, 0.5)',  // 紫色
+                'rgba(26, 188, 156, 0.5)',  // 青绿色
+                'rgba(230, 126, 34, 0.5)',  // 橙色
+                'rgba(255, 255, 255, 0.5)'  // 白色
+            ];
+            
+            // 创建粒子，使用网格确保更均匀分布
+            const gridSize = Math.ceil(Math.sqrt(particleCount));
+            const cellWidth = 100 / gridSize;
+            const cellHeight = 100 / gridSize;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 计算网格位置
+                const gridX = i % gridSize;
+                const gridY = Math.floor(i / gridSize);
+                
+                // 在网格单元内随机分布
+                let x = (gridX * cellWidth) + (Math.random() * cellWidth);
+                let y = (gridY * cellHeight) + (Math.random() * cellHeight);
+                
+                // 随机大小 (1-6px)
+                const size = 1 + Math.random() * 5;
+                
+                // 随机透明度
+                const opacity = 0.3 + Math.random() * 0.5;
+                
+                // 随机选择颜色
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 设置样式
+                particle.style.left = x + 'vw';
+                particle.style.top = y + 'vh';
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.opacity = opacity;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 4px ${color}`;
+                
+                // 添加原始位置数据属性
+                particle.dataset.originalX = x;
+                particle.dataset.originalY = y;
+                
+                // 添加到片段
+                fragment.appendChild(particle);
+            }
+            
+            // 一次性添加所有粒子到容器
+            particlesContainer.appendChild(fragment);
+            
+            // 添加粒子动画
+            animateParticles();
+        }
+        
+        // 让粒子动起来
+        function animateParticles() {
+            const particles = document.querySelectorAll('.particle');
+            
+            function animate() {
+                particles.forEach(particle => {
+                    const x = parseFloat(particle.style.left);
+                    const y = parseFloat(particle.style.top);
+                    
+                    // 创建小的随机动作
+                    const time = Date.now() / 2000;
+                    const factor = (x + y) / 50;
+                    const moveX = Math.sin(time + factor) * 0.2;
+                    const moveY = Math.cos(time + factor * 1.5) * 0.2;
+                    
+                    particle.style.transform = `translate(${moveX}vw, ${moveY}vh) translateZ(0)`;
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // 初始化鼠标光环
+        function initMouseCursor() {
+            const cursor = document.querySelector('.mouse-cursor');
+            const interactiveElements = document.querySelectorAll('a, button, .swiper-slide, .article-item, .featured-card-link, .article-link');
+            
+            // 鼠标移动时更新光环位置
+            document.addEventListener('mousemove', throttle((e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            }, 5));
+            
+            // 鼠标悬停在交互元素上时的效果
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+            
+            // 确保鼠标光标在页面加载时隐藏，直到鼠标移动
+            cursor.style.opacity = '0';
+            document.addEventListener('mousemove', () => {
+                cursor.style.opacity = '1';
+            }, { once: true });
+        }
+        
+        // 处理点击效果
+        function handleClick(e) {
+            // 创建点击特效
+            const clickEffect = document.createElement('div');
+            clickEffect.className = 'click-effect';
+            clickEffect.style.width = '200px';
+            clickEffect.style.height = '200px';
+            clickEffect.style.left = e.clientX + 'px';
+            clickEffect.style.top = e.clientY + 'px';
+            document.body.appendChild(clickEffect);
+            
+            // 动画结束后移除元素
+            clickEffect.addEventListener('animationend', function() {
+                if (this.parentNode) {
+                    this.remove();
+                }
+            });
+        }
+        
+        // 使用节流函数限制高频事件
+        function throttle(fn, delay) {
+            let lastCall = 0;
+            return function(...args) {
+                const now = new Date().getTime();
+                if (now - lastCall < delay) {
+                    return;
+                }
+                lastCall = now;
+                return fn(...args);
+            }
+        }
+    </script>
+</body>
+</html> 

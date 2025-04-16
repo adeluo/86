@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="智维的个人网�?- 文章与思考的分享空间">
+    <title>智维 - 个人网站</title>
+    <!-- 引入 Font Awesome 图标�?-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #fff;
+            --accent-color: #3498db;
+            --text-color: #fff;
+            --dark-color: #000;
+            --shadow: 0 2px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+       font-family: 'Roboto', sans-serif;
+       line-height: 1.6;
+       color: var(--text-color);
+       background-color: #000;
+       overflow-x: hidden;
+       height: 100vh;
+       cursor: default;
+       position: relative; /* 添加这行 */
+       margin: 0;
+       padding: 0;
+       overscroll-behavior: none; /* 防止iOS上的弹性滚�?*/
+   }
+
+   /* 添加这个新样�?*/
+   body::before {
+       content: '';
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-image: url('yuansu.jpg');
+       background-size: cover;
+       background-position: center;
+       opacity: 0.25; /* 调整透明度使其成为半透明背景 */
+       z-index: -2;
+       filter: contrast(1.1) brightness(1.1); /* 增强背景图片的对比度和亮�?*/
+   }
+   
+   /* 添加背景光晕效果 */
+   body::after {
+       content: '';
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: radial-gradient(circle at 50% 50%, rgba(52, 152, 219, 0.15), transparent 70%);
+       z-index: -1;
+       animation: pulse-background 8s ease-in-out infinite alternate;
+   }
+   
+   @keyframes pulse-background {
+       0% {
+           opacity: 0.4;
+           background-position: 0% 0%;
+       }
+       50% {
+           opacity: 0.7;
+           background-position: 100% 100%;
+       }
+       100% {
+           opacity: 0.4;
+           background-position: 0% 0%;
+       }
+   }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .main-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+           /* 添加流动光线效果 */
+   .light-lines {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       overflow: hidden;
+       z-index: -1;
+       opacity: 0.7;
+       pointer-events: none; /* 避免鼠标事件捕获 */
+   }
+   
+   /* 添加浮动光粒�?*/
+   .particles {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       overflow: hidden;
+       z-index: -1;
+   }
+   
+   .particle {
+       position: absolute;
+       width: 5px;
+       height: 5px;
+       background: rgba(52, 152, 219, 0.6);
+       border-radius: 50%;
+       pointer-events: none;
+       filter: blur(2px);
+       box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+   }
+   
+   .light-line {
+       position: absolute;
+       background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.4), transparent);
+       height: 2px;
+       width: 100%;
+       animation: flow 8s linear infinite;
+       opacity: 0;
+       transform: translateZ(0); /* 启用硬件加�?*/
+   }
+   
+   .light-line:nth-child(1) {
+       top: 20%;
+       animation-delay: 0s;
+   }
+   
+   .light-line:nth-child(2) {
+       top: 40%;
+       animation-delay: 2s;
+   }
+   
+   .light-line:nth-child(3) {
+       top: 60%;
+       animation-delay: 4s;
+   }
+   
+   .light-line:nth-child(4) {
+       top: 80%;
+       animation-delay: 6s;
+   }
+   
+   /* 添加更多光线 */
+   .light-line:nth-child(5) {
+       top: 30%;
+       animation-delay: 1s;
+   }
+   
+   .light-line:nth-child(6) {
+       top: 50%;
+       animation-delay: 3s;
+   }
+   
+   .light-line:nth-child(7) {
+       top: 70%;
+       animation-delay: 5s;
+   }
+   
+   .light-line:nth-child(8) {
+       top: 90%;
+       animation-delay: 7s;
+   }
+   
+   @keyframes flow {
+       0% {
+           transform: translateX(-100%);
+           opacity: 0;
+       }
+       10% {
+           opacity: 1;
+       }
+       90% {
+           opacity: 1;
+       }
+       100% {
+           transform: translateX(100%);
+           opacity: 0;
+       }
+   }
+
+      /* 鼠标点击光效 */
+      .click-effect {
+       position: fixed;
+       border-radius: 50%;
+       pointer-events: none;
+       transform: translate(-50%, -50%) scale(0);
+       background: radial-gradient(circle, rgba(52, 152, 219, 0.8) 0%, rgba(52, 152, 219, 0) 70%);
+       animation: click-animation 1s forwards cubic-bezier(0, 0.55, 0.45, 1);
+       z-index: 9;
+       will-change: transform, opacity;
+   }
+   @keyframes click-animation {
+       0% {
+           opacity: 1;
+           transform: translate(-50%, -50%) scale(0);
+       }
+       100% {
+           opacity: 0;
+           transform: translate(-50%, -50%) scale(5);
+       }
+   }
+        /* 头部样式 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        /* Welcome文本样式 */
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 60vh;
+        }
+
+        .welcome-text {
+    font-size: 8vw;
+    font-weight: 700;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    color: #3498db;
+    animation: glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5),
+                 0 0 20px rgba(52, 152, 219, 0.3),
+                 0 0 30px rgba(52, 152, 219, 0.1);
+}
+
+@keyframes glow {
+    from {
+        color: #3498db;
+        text-shadow: 0 0 5px rgba(52, 152, 219, 0.5),
+                     0 0 10px rgba(52, 152, 219, 0.3);
+    }
+    to {
+        color: #73c5ff;
+        text-shadow: 0 0 10px rgba(52, 152, 219, 0.8),
+                     0 0 20px rgba(52, 152, 219, 0.5),
+                     0 0 30px rgba(52, 152, 219, 0.3);
+    }
+}
+
+        .light-effect {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.2) 0%, rgba(52, 152, 219, 0) 70%);
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(10px);
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+
+        /* 进入网站按钮 */
+        .enter-site {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .enter-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--accent-color);
+            color: var(--primary-color);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            z-index: 10; /* 确保按钮在粒子之�?*/
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .enter-button:hover::before {
+            left: 0;
+        }
+
+        .enter-button:hover {
+            color: #fff;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        }
+
+        /* 按钮周围的粒子效�?*/
+        .button-particles-container {
+            position: absolute;
+            width: 600px; /* 增加宽度 */
+            height: 400px; /* 增加高度 */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .button-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(52, 152, 219, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+            filter: blur(1px);
+            will-change: transform, opacity;
+        }
+        
+        .enter-site:hover .button-particle {
+            animation: button-particle-pulse 1.5s infinite alternate ease-in-out;
+        }
+        
+        @keyframes button-particle-pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+                filter: blur(1px);
+            }
+            100% {
+                transform: scale(1.8);
+                opacity: 1;
+                filter: blur(2px);
+            }
+        }
+
+        /* 社交媒体链接区域 */
+        .social-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        /* 小红书图标样�?*/
+        .xiaohongshu-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .xiaohongshu-icon span {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* 响应式样�?*/
+        @media (max-width: 768px) {
+            .welcome-text {
+                font-size: 12vw;
+            }
+            
+            .main-container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-text {
+                font-size: 15vw;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .social-link {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 字母呼吸动画 */
+        @keyframes letter-breathe {
+            0% {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* 按钮脉冲动画 */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+            }   
+        }
+
+        /* 添加方块光源效果 */
+        .light-squares {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .light-square {
+            position: absolute;
+            background: var(--square-color, rgba(52, 152, 219, 0.15));
+            box-shadow: 0 0 20px 5px var(--square-glow, rgba(52, 152, 219, 0.2));
+            animation: square-pulse 4s ease-in-out infinite alternate;
+            border-radius: 2px;
+            mix-blend-mode: screen; /* 添加混合模式，使光效与背景更好地融合 */
+            opacity: 0.2; /* 降低整体不透明�?*/
+        }
+        
+        /* 增强型方块光�?*/
+        .light-square.enhanced {
+            background: var(--square-color-enhanced, rgba(52, 152, 219, 0.05));
+            mix-blend-mode: soft-light; /* 更柔和的混合模式 */
+            filter: blur(15px);
+            box-shadow: 0 0 30px 10px var(--square-glow-enhanced, rgba(52, 152, 219, 0.15));
+            opacity: 0.15; /* 降低整体不透明�?*/
+        }
+        
+        @keyframes square-pulse {
+            0% {
+                opacity: 0.1; /* 最小不透明度更�?*/
+                box-shadow: 0 0 10px 2px var(--square-glow, rgba(52, 152, 219, 0.05));
+            }
+            100% {
+                opacity: 0.3; /* 最大不透明度也降低 */
+                box-shadow: 0 0 15px 5px var(--square-glow, rgba(52, 152, 219, 0.15));
+            }
+        }
+
+        /* 全局优化 - 添加硬件加�?*/
+        .light-lines, .particles, .light-squares, .light-effect, .click-effect, .welcome-text {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* 鼠标光环跟随效果 */
+        .mouse-cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            will-change: transform, width, height;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+        
+        .mouse-cursor.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+    </style>
+</head>
+<body>
+      <!-- 添加流动光线 -->
+      <div class="light-lines">
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+        <div class="light-line"></div>
+      </div>
+    
+    <!-- 添加浮动光粒�?-->
+    <div class="particles"></div>
+    
+    <!-- 添加方块光源 -->
+    <div class="light-squares"></div>
+    
+    <!-- 鼠标光环 -->
+    <div class="mouse-cursor"></div>
+    
+    <div class="main-container">
+        <header>
+            <div class="logo">智维</div>
+        </header>
+
+
+
+        <div class="welcome-container">
+            <div class="welcome-text">WELCOME</div>
+        </div>
+
+
+
+        <div class="enter-site">
+            <a href="article-list.html" class="enter-button">进入网站</a>
+            <div class="button-particles-container"></div>
+            <div class="light-effect"></div>
+        </div>
+
+        <!-- 社交媒体链接区域 -->
+        <div class="social-footer">
+            <div class="social-links">
+                <a href="https://mp.weixin.qq.com/s/b2otloJ5C3XqDxfU4X45wQ" class="social-link"><i class="fab fa-weixin"></i></a>
+                <a href="https://www.xiaohongshu.com/user/profile/64d1aeb7000000000e0244ce?xsec_token=YBFbql-B0si-hPsRQuMuNlSyJLcsjpUSR38Mdyu5LIWw4=&xsec_source=app_share&xhsshare=CopyLink&appuid=64d1aeb7000000000e0244ce&apptime=1744816074&share_id=a2eee36dc46b4908802eada99d8c3225" class="social-link" style="background-color: #ff2442; color: white; font-weight: bold; font-size: 12px;">RED</a>
+                <a href="https://v.douyin.com/0QYsmk1A1Ng/" class="social-link"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.xiaoyuzhoufm.com/episode/67efcaf5f9578163d601286a" class="social-link"><i class="fas fa-headphones"></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 ZHIWEI. All Rights Reserved</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 使用节流函数限制高频事件
+        function throttle(fn, delay) {
+            let lastCall = 0;
+            return function(...args) {
+                const now = new Date().getTime();
+                if (now - lastCall < delay) {
+                    return;
+                }
+                lastCall = now;
+                return fn(...args);
+            }
+        }
+        
+        // 文档加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 统一初始化，减少重复调用
+            initEffects();
+        });
+        
+        // 初始化所有效�?
+        function initEffects() {
+            // 所有效果一次性初始化
+            createParticles();
+            createLightSquares();
+            enhanceWelcomeText();
+            initMouseCursor();
+            createButtonParticles();
+            
+            // 添加粒子自由浮动动画
+            animateParticles();
+            
+            // 使用节流函数处理点击事件，防止过多触�?
+            document.addEventListener('click', throttle(handleClick, 50));
+            
+            // 光效跟随鼠标
+            const lightEffect = document.querySelector('.light-effect');
+            if (lightEffect) {
+                // 使用节流函数处理鼠标移动事件
+                document.addEventListener('mousemove', throttle((e) => {
+                    const enterSite = document.querySelector('.enter-site');
+                    const containerRect = enterSite.getBoundingClientRect();
+                    const containerCenterX = containerRect.left + containerRect.width / 2;
+                    const containerCenterY = containerRect.top + containerRect.height / 2;
+                    
+                    // 计算鼠标与中心点的距离百分比
+                    const moveX = (e.clientX - containerCenterX) / window.innerWidth * 20;
+                    const moveY = (e.clientY - containerCenterY) / window.innerHeight * 20;
+                    
+                    // 光效跟随鼠标，但更轻量级
+                    lightEffect.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }, 50));
+            }
+        }
+        
+        // 初始化鼠标光�?
+        function initMouseCursor() {
+            const cursor = document.querySelector('.mouse-cursor');
+            const interactiveElements = document.querySelectorAll('a, button, .logo');
+            
+            // 鼠标移动时更新光环位�?
+            document.addEventListener('mousemove', throttle((e) => {
+                // 更新光环位置
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+                
+                // 更新粒子位置 - 让粒子跟随鼠标受到微弱的吸引�?
+                updateParticlesPosition(e.clientX, e.clientY);
+            }, 5)); // 使用较小的节流值以保持更流畅的跟随效果
+            
+            // 鼠标悬停在交互元素上时的效果
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+            
+            // 确保鼠标光标在页面加载时隐藏，直到鼠标移�?
+            cursor.style.opacity = '0';
+            document.addEventListener('mousemove', () => {
+                cursor.style.opacity = '1';
+            }, { once: true });
+        }
+        
+        // 更新粒子位置以响应鼠�?
+        function updateParticlesPosition(mouseX, mouseY) {
+            const particles = document.querySelectorAll('.particle');
+            const mouseXPercent = mouseX / window.innerWidth * 100;
+            const mouseYPercent = mouseY / window.innerHeight * 100;
+            
+            particles.forEach(particle => {
+                // 获取粒子当前位置和原始位�?
+                const particleX = parseFloat(particle.style.left);
+                const particleY = parseFloat(particle.style.top);
+                const originalX = parseFloat(particle.dataset.originalX || particleX);
+                const originalY = parseFloat(particle.dataset.originalY || particleY);
+                const originalSize = parseFloat(particle.dataset.originalSize || 2);
+                
+                // 计算粒子与鼠标之间的距离
+                const dx = mouseXPercent - particleX;
+                const dy = mouseYPercent - particleY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // 如果距离�?0%视口单位以内，施加微弱的吸引�?
+                if (distance < 20) {
+                    // 吸引力随距离增加而减�?
+                    const force = 0.8 * (1 - distance / 20);
+                    const moveX = dx * force * 0.15;
+                    const moveY = dy * force * 0.15;
+                    
+                    // 应用新位置，但限制移动幅�?
+                    const newX = Math.max(0, Math.min(100, particleX + moveX));
+                    const newY = Math.max(0, Math.min(100, particleY + moveY));
+                    
+                    // 使用transform而不是更改left/top以获得更好的性能
+                    const translateX = newX - particleX;
+                    const translateY = newY - particleY;
+                    
+                    // 添加微小的随机偏移以创造更生动的效�?
+                    const jitter = (Math.random() - 0.5) * 0.1;
+                    
+                    // 设置变换
+                    let transform = `translate(${translateX + jitter}vw, ${translateY + jitter}vh) translateZ(0)`;
+                    
+                    // 近距离时增大粒子的大小和亮度
+                    if (distance < 8) {
+                        const scale = 1 + (1 - distance / 8) * 1.2;
+                        transform += ` scale(${scale})`;
+                        particle.style.opacity = Math.min(0.9, parseFloat(particle.style.opacity) + 0.1);
+                        particle.style.filter = `blur(${Math.max(0, 1 - distance / 8)}px)`;
+                    }
+                    
+                    particle.style.transform = transform;
+                } else {
+                    // 远离时逐渐恢复原始位置 - 添加偏移到原始位�?
+                    const currentTransform = particle.style.transform;
+                    const hasTranslate = currentTransform && currentTransform !== 'translateZ(0)';
+                    
+                    // 如果粒子已经被移动，让它缓慢回到原来的位�?
+                    if (hasTranslate) {
+                        // 计算回到原位的移动量
+                        const returnForce = 0.05;
+                        const returnX = (originalX - particleX) * returnForce;
+                        const returnY = (originalY - particleY) * returnForce;
+                        
+                        particle.style.transform = `translate(${returnX}vw, ${returnY}vh) translateZ(0)`;
+                        particle.style.opacity = Math.max(0.2, parseFloat(particle.style.opacity) - 0.01);
+                        particle.style.filter = 'blur(0px)';
+                    } else {
+                        // 完全没有移动的粒子不需要任何变�?
+                        particle.style.transform = 'translateZ(0)';
+                    }
+                }
+            });
+        }
+        
+        // 处理点击效果
+        function handleClick(e) {
+            // 只在非链接和非按钮元素上阻止默认行为
+            if (!e.target.closest('a') && !e.target.closest('button')) {
+                e.preventDefault();
+            }
+            
+            // 使用requestAnimationFrame优化渲染性能
+            requestAnimationFrame(() => {
+                const clickEffect = document.createElement('div');
+                clickEffect.className = 'click-effect';
+                clickEffect.style.width = '200px';
+                clickEffect.style.height = '200px';
+                clickEffect.style.left = e.clientX + 'px';
+                clickEffect.style.top = e.clientY + 'px';
+                document.body.appendChild(clickEffect);
+                
+                // 使用animationend事件而不是setTimeout，更加高�?
+                clickEffect.addEventListener('animationend', function() {
+                    if (this.parentNode) {
+                        this.remove();
+                    }
+                });
+            });
+        }
+        
+        // 增强Welcome文字效果
+        function enhanceWelcomeText() {
+            const welcomeText = document.querySelector('.welcome-text');
+            
+            // 将原来的逐字符动画替换为更简单的实现
+            welcomeText.style.animation = 'glow 2s ease-in-out infinite alternate';
+            welcomeText.style.opacity = '1';
+            
+            // 简单添加文字阴影效果，而不是创建多个元�?
+            welcomeText.style.textShadow = '0 0 10px rgba(52, 152, 219, 0.5), 0 0 20px rgba(52, 152, 219, 0.3), 0 0 30px rgba(52, 152, 219, 0.1)';
+        }
+        
+        // 创建浮动光粒�?
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 40; // 增加粒子数量�?0�?
+            
+            // 清空现有粒子
+            particlesContainer.innerHTML = '';
+            
+            // 使用文档片段减少DOM重绘次数
+            const fragment = document.createDocumentFragment();
+            
+            // 颜色数组
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',  // 蓝色
+                'rgba(142, 68, 173, 0.5)',  // 紫色
+                'rgba(26, 188, 156, 0.5)',  // 青绿�?
+                'rgba(230, 126, 34, 0.5)',  // 橙色
+                'rgba(255, 255, 255, 0.5)'  // 白色
+            ];
+            
+            // 创建新粒子，使用网格确保更均匀分布
+            const gridSize = Math.ceil(Math.sqrt(particleCount));
+            const cellWidth = 100 / gridSize;
+            const cellHeight = 100 / gridSize;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 计算网格位置
+                const gridX = i % gridSize;
+                const gridY = Math.floor(i / gridSize);
+                
+                // 在网格单元内随机分布，确保覆盖整个屏�?
+                let x = (gridX * cellWidth) + (Math.random() * cellWidth);
+                let y = (gridY * cellHeight) + (Math.random() * cellHeight);
+                
+                // 随机大小 (1-6px)
+                const size = 1 + Math.random() * 5;
+                
+                // 随机透明�?
+                const opacity = 0.3 + Math.random() * 0.5;
+                
+                // 随机选择颜色
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 设置样式
+                particle.style.left = x + 'vw';
+                particle.style.top = y + 'vh';
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.opacity = opacity;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 4px ${color}`;
+                
+                // 添加原始位置数据属性，便于后续恢复位置
+                particle.dataset.originalX = x;
+                particle.dataset.originalY = y;
+                particle.dataset.originalSize = size;
+                
+                // 添加过渡效果使移动更平滑
+                particle.style.transition = 'transform 0.3s ease-out';
+                
+                // 加入变换的Z轴值，启用硬件加�?
+                particle.style.transform = 'translateZ(0)';
+                
+                // 添加到片�?
+                fragment.appendChild(particle);
+            }
+            
+            // 一次性添加所有粒子到容器
+            particlesContainer.appendChild(fragment);
+        }
+        
+        // 定义浮动动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translate(0, 0) translateZ(0);
+                }
+                25% {
+                    transform: translate(10px, 20px) translateZ(0);
+                }
+                50% {
+                    transform: translate(20px, 0) translateZ(0);
+                }
+                75% {
+                    transform: translate(10px, -20px) translateZ(0);
+                }
+                100% {
+                    transform: translate(0, 0) translateZ(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 创建方块光源
+        function createLightSquares() {
+            const squaresContainer = document.querySelector('.light-squares');
+            
+            // 清空现有光源
+            squaresContainer.innerHTML = '';
+            
+            // 定义多种颜色组合 (基础�? 发光�? 增强基础�? 增强发光�?
+            const colorSchemes = [
+                // 蓝色�?
+                ['rgba(52, 152, 219, 0.15)', 'rgba(52, 152, 219, 0.2)', 'rgba(52, 152, 219, 0.05)', 'rgba(52, 152, 219, 0.15)'],
+                // 紫色�?
+                ['rgba(142, 68, 173, 0.15)', 'rgba(142, 68, 173, 0.2)', 'rgba(142, 68, 173, 0.05)', 'rgba(142, 68, 173, 0.15)'],
+                // 浅蓝绿色�?
+                ['rgba(26, 188, 156, 0.15)', 'rgba(26, 188, 156, 0.2)', 'rgba(26, 188, 156, 0.05)', 'rgba(26, 188, 156, 0.15)'],
+                // 橙色�?
+                ['rgba(230, 126, 34, 0.15)', 'rgba(230, 126, 34, 0.2)', 'rgba(230, 126, 34, 0.05)', 'rgba(230, 126, 34, 0.15)'],
+                // 白色�?
+                ['rgba(236, 240, 241, 0.15)', 'rgba(236, 240, 241, 0.2)', 'rgba(236, 240, 241, 0.05)', 'rgba(236, 240, 241, 0.15)']
+            ];
+            
+            // 定义方块光源位置 - 这些位置应该与背景图中的光源位置大致对应
+            // 格式: [x百分�? y百分�? 宽度, 高度, 延迟, 颜色方案索引]
+            const squarePositions = [
+                [15, 20, 25, 20, 0, 0],     // 左上方的光源 - 蓝色 (减小尺寸)
+                [75, 30, 20, 20, 0.5, 3],   // 右上方的光源 - 橙色 (减小尺寸)
+                [30, 70, 15, 15, 1, 2],     // 左下方的光源 - 浅蓝绿色 (减小尺寸)
+                [85, 65, 15, 15, 1.5, 1]    // 右下方的光源 - 紫色 (减小尺寸)
+                // 移除中央光源
+            ];
+            
+            // 创建每个方块光源 (使用文档片段减少DOM重绘次数)
+            const fragment = document.createDocumentFragment();
+            
+            squarePositions.forEach(([x, y, width, height, delay, colorIndex]) => {
+                // 获取颜色方案
+                const colorScheme = colorSchemes[colorIndex];
+                
+                // 创建基础方块光源
+                const square = document.createElement('div');
+                square.className = 'light-square';
+                
+                // 设置颜色
+                square.style.setProperty('--square-color', colorScheme[0]);
+                square.style.setProperty('--square-glow', colorScheme[1]);
+                
+                // 设置位置和大�?
+                square.style.left = `${x - width/2}%`;
+                square.style.top = `${y - height/2}%`;
+                square.style.width = `${width}%`;
+                square.style.height = `${height}%`;
+                
+                // 设置动画延迟
+                square.style.animationDelay = `${delay}s`;
+                
+                // 随机旋转
+                const rotation = Math.random() * 20 - 10;
+                square.style.transform = `rotate(${rotation}deg) translateZ(0)`;
+                
+                // 添加到片�?
+                fragment.appendChild(square);
+                
+                // 创建增强型方块光源，尺寸略大，提供额外的光晕效果
+                const enhancedSquare = document.createElement('div');
+                enhancedSquare.className = 'light-square enhanced';
+                
+                // 设置颜色
+                enhancedSquare.style.setProperty('--square-color-enhanced', colorScheme[2]);
+                enhancedSquare.style.setProperty('--square-glow-enhanced', colorScheme[3]);
+                
+                // 设置略大的尺�?
+                enhancedSquare.style.left = `${x - width/2 - 3}%`;
+                enhancedSquare.style.top = `${y - height/2 - 3}%`;
+                enhancedSquare.style.width = `${width + 6}%`;
+                enhancedSquare.style.height = `${height + 6}%`;
+                
+                // 设置反向动画延迟，使光效更加动�?
+                enhancedSquare.style.animationDelay = `${delay + 2}s`;
+                enhancedSquare.style.transform = `rotate(${-rotation * 0.5}deg) translateZ(0)`;
+                
+                // 添加到片�?
+                fragment.appendChild(enhancedSquare);
+            });
+            
+            // 额外添加一些小的光�?(减少�?�?
+            const dotColors = [
+                'rgba(120, 180, 255, 0.2)',  // 蓝色
+                'rgba(180, 120, 255, 0.2)',  // 紫色
+                'rgba(255, 180, 120, 0.2)',  // 橙色
+                'rgba(120, 255, 180, 0.2)',  // 绿色
+                'rgba(255, 255, 255, 0.2)'   // 白色
+            ];
+            
+            for (let i = 0; i < 8; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'light-square';
+                
+                // 随机颜色
+                const dotColor = dotColors[Math.floor(Math.random() * dotColors.length)];
+                
+                // 随机位置
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // 较小的尺�?
+                const size = 3 + Math.random() * 7;
+                
+                // 设置样式
+                dot.style.left = `${x}%`;
+                dot.style.top = `${y}%`;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.borderRadius = '50%';
+                dot.style.background = dotColor;
+                
+                // 设置动画延迟
+                dot.style.animationDelay = `${Math.random() * 4}s`;
+                
+                // 添加到片�?
+                fragment.appendChild(dot);
+            }
+            
+            // 一次性添加所有元素到容器
+            squaresContainer.appendChild(fragment);
+        }
+        
+        // 让粒子自由浮动的函数
+        function animateParticles() {
+            const particles = document.querySelectorAll('.particle');
+            let lastTime = 0;
+            
+            function animate(time) {
+                if (!lastTime) lastTime = time;
+                const deltaTime = time - lastTime;
+                lastTime = time;
+                
+                // 计算每秒的运动量，保持平滑帧率无关的动画
+                const moveFactor = deltaTime / 1000;
+                
+                particles.forEach(particle => {
+                    // 检查粒子是否当前被鼠标影响
+                    const transform = particle.style.transform;
+                    const isMouseInfluenced = transform && transform.includes('translate') && 
+                                             !transform.includes('0vw, 0vh');
+                    
+                    // 如果粒子没有被鼠标影响，添加轻微的自由浮�?
+                    if (!isMouseInfluenced) {
+                        // 为每个粒子创建一个唯一的动画，基于它的位置
+                        const particleX = parseFloat(particle.style.left);
+                        const particleY = parseFloat(particle.style.top);
+                        
+                        // 使用粒子位置的sin和cos创建循环运动
+                        const time = Date.now() / 2000;
+                        const uniqueFactor = (particleX + particleY) / 50;
+                        const moveX = Math.sin(time + uniqueFactor) * 0.2 * moveFactor;
+                        const moveY = Math.cos(time + uniqueFactor * 1.5) * 0.2 * moveFactor;
+                        
+                        // 应用微小的随机移�?
+                        particle.style.transform = `translate(${moveX}vw, ${moveY}vh) translateZ(0)`;
+                    }
+                });
+                
+                // 继续动画循环
+                requestAnimationFrame(animate);
+            }
+            
+            // 开始动画循�?
+            requestAnimationFrame(animate);
+        }
+
+        // 创建按钮周围的粒�?
+        function createButtonParticles() {
+            const buttonParticlesContainer = document.querySelector('.button-particles-container');
+            const buttonElement = document.querySelector('.enter-button');
+            const particleCount = 60; // 增加粒子数量
+            
+            // 清空现有粒子
+            buttonParticlesContainer.innerHTML = '';
+            
+            // 使用文档片段减少DOM重绘次数
+            const fragment = document.createDocumentFragment();
+            
+            // 创建粒子
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'button-particle';
+                
+                // 随机位置，分布范围更�?
+                const x = Math.random() * 300 - 150; // 在按钮左右分布更�?
+                const y = Math.random() * 300 - 150; // 在按钮上下分布更�?
+                
+                // 随机大小，增加大小变�?
+                const size = 1 + Math.random() * 6;
+                
+                // 随机不透明�?
+                const opacity = 0.2 + Math.random() * 0.6;
+                
+                // 设置样式
+                particle.style.left = `calc(50% + ${x}px)`;
+                particle.style.top = `calc(50% + ${y}px)`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = opacity;
+                
+                // 随机动画延迟，使粒子不同�?
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                
+                // 添加到片�?
+                fragment.appendChild(particle);
+            }
+            
+            // 一次性添加所有粒子到容器
+            buttonParticlesContainer.appendChild(fragment);
+            
+            // 为按钮添加悬停事件，使周围粒子受到吸�?
+            buttonElement.addEventListener('mouseenter', () => {
+                const particles = document.querySelectorAll('.button-particle');
+                particles.forEach((particle, index) => {
+                    // 计算从当前位置到按钮中心的随机偏�?
+                    const factor = index / particles.length;
+                    
+                    // 粒子向外扩散的动�?
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 30 + Math.random() * 70;
+                    const moveX = Math.cos(angle) * distance;
+                    const moveY = Math.sin(angle) * distance;
+                    
+                    // 随机延迟，创造扩散效�?
+                    const delay = Math.random() * 0.3;
+                    
+                    // 应用新位置，粒子向外扩散
+                    particle.style.transition = `transform 0.8s ease-out ${delay}s, opacity 0.5s ease-in, box-shadow 0.5s ease`;
+                    particle.style.transform = `translate(${moveX}px, ${moveY}px) scale(${1 + Math.random() * 0.5})`;
+                    particle.style.boxShadow = `0 0 8px rgba(52, 152, 219, 0.8)`;
+                    particle.style.opacity = '0.7';
+                });
+            });
+            
+            // 鼠标离开时恢复原�?
+            buttonElement.addEventListener('mouseleave', () => {
+                const particles = document.querySelectorAll('.button-particle');
+                particles.forEach((particle, index) => {
+                    // 随机延迟，创造收缩效�?
+                    const delay = Math.random() * 0.2;
+                    particle.style.transition = `transform 1.2s ease ${delay}s, opacity 0.8s ease, box-shadow 0.8s ease`;
+                    particle.style.transform = 'translate(0, 0) scale(1)';
+                    particle.style.boxShadow = '0 0 5px rgba(52, 152, 219, 0.6)';
+                    particle.style.opacity = '0.4';
+                });
+            });
+            
+            // 添加一个动画效果，使粒子缓慢移�?
+            animateButtonParticles();
+        }
+        
+        // 让按钮粒子缓慢移动的函数
+        function animateButtonParticles() {
+            const particles = document.querySelectorAll('.button-particle');
+            
+            function animate() {
+                particles.forEach((particle, index) => {
+                    // 仅当鼠标不在按钮上时才应用这个动�?
+                    if (!document.querySelector('.enter-button:hover')) {
+                        // 根据粒子索引创建不同的动�?
+                        const time = Date.now() / 3000;
+                        const factor = index / particles.length;
+                        
+                        // 更大幅度的扩散运�?
+                        const radius = 20 + Math.sin(time * 0.5) * 15;
+                        const angle = (factor * Math.PI * 2) + time * 0.2;
+                        const moveX = Math.sin(angle) * radius;
+                        const moveY = Math.cos(angle) * radius;
+                        
+                        // 应用变换，添加轻微缩放效�?
+                        const scale = 0.8 + Math.sin(time + factor * 5) * 0.2;
+                        particle.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
+                        
+                        // 随时间变化透明�?
+                        const opacity = 0.3 + Math.sin(time + factor * 3) * 0.2;
+                        particle.style.opacity = opacity;
+                    }
+                });
+                
+                // 继续动画循环
+                requestAnimationFrame(animate);
+            }
+            
+            // 开始动�?
+            requestAnimationFrame(animate);
+        }
+        // 初始化Swiper
+        const swiper = new Swiper('.featured-articles', {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 4
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
